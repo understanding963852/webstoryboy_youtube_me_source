@@ -1,11 +1,29 @@
-import React from 'react'
+import React from "react";
+import Header from "./Header";
+import Footer from "./Footer";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
-const Main = () => {
+const Main = (props) => {
+  console.log(props.children);
   return (
-    <main id="main" role='main'>
-      main
-    </main>
-  )
-}
+    <HelmetProvider>
+      <Helmet
+        titleTemplate="%s|Webs Youtube"
+        defaultTitle="Webs Youtube"
+        defer={false}
+      >
+        {props.title && <title>{props.title}</title>}
+        <meta name="description" content={props.description} />
+      </Helmet>
 
-export default Main
+      <Header />
+      <main id="main" role="main">
+        {props.children}
+      </main>
+
+      <Footer />
+    </HelmetProvider>
+  );
+};
+
+export default Main;
